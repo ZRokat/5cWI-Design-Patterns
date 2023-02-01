@@ -1,5 +1,6 @@
 package at.ran.Main;
 
+import at.ran.Main.Factory.RandomCircleFactory;
 import at.ran.Main.Move.MoveHorizontal;
 import at.ran.Main.Move.MoveStrategy;
 import at.ran.Main.Move.MoveVertical;
@@ -22,18 +23,26 @@ public class Main extends BasicGame {
         MoveStrategy left = new MoveHorizontal(300, 600, -0.09f);
         MoveStrategy down = new MoveVertical(400,700, 0.09f);
         MoveStrategy up = new MoveVertical(500,100, -0.09f);
-
         MoveStrategy[] direction = {right,left,down,up , right2};
-    this.actors = new ArrayList<>();
+        this.actors = new ArrayList<>();
     int x = 0;
-        for (int i = 0; i < 8; i++) {
-            this.actors.add(new Circle(100, right2 ));
-            this.actors.add(new Rect(300,200,direction[x]));
+        for (int i = 0; i < 10; i++) {
+            this.actors.add(RandomCircleFactory.getRandomActor());
             x++;
-            if (x==4){
-                x = 0;
-            }
         }
+        Player p = new Player();
+        Circle c = new Circle(60, up );
+        Circle c2 = new Circle(20, down );
+        Rect r = new Rect(100,150,left);
+
+        this.actors.add(p );
+        this.actors.add(c );
+        this.actors.add(c2 );
+        this.actors.add(r );
+        p.addObserver(c);
+        p.addObserver(c2);
+        p.addObserver(c2);
+        p.addObserver(r);
     }
 
     @Override
